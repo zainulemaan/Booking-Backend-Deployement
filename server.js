@@ -1,21 +1,22 @@
 const app = require("./app");
 const mongoose = require("mongoose");
-const cors = require("cors"); 
-const dotenv = require("dotenv"); 
+const cors = require("cors");
+const dotenv = require("dotenv");
 
 // Loading environment variables from .env file
 dotenv.config();
 
-const port = 3000;
+// using the port from the environment variable.
+const port = process.env.PORT || 3000;
 
-// MongoDB connection string 
+// MongoDB connection string
 const mongoDB = process.env.MONGODB_URI;
 
-// Enable CORS for all routes
+// enabling CORS for all routes
 app.use(
   cors({
     origin: "*", // Allow all origins.
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowing methods
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
   })
 );
 
