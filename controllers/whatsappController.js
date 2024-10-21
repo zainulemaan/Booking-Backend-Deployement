@@ -1,7 +1,6 @@
 const { Client, LocalAuth } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
 const dotenv = require("dotenv");
-const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
 dotenv.config();
