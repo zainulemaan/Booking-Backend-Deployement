@@ -35,20 +35,25 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.register = catchAsync(async (req, res, next) => {
-  const { name, email, password, confirmPassword } = req.body;
-  if (!name || !email || !password || !confirmPassword) {
-    return next(new AppError("Please Provide All The Details Thanks!", 400));
+  try {
+    const { name, email, password, confirmPassword } = req.body;
+    if (!name || !email || !password || !confirmPassword) {
+      return next(new AppError("Please Provide All The Details Thanks!", 400));
+    }
+
+    // Creating User
+    const newUser = await User.create({
+      name,
+      email,
+      password,
+      confirmPassword,
+    });
+
+    createSendToken(newUser, 201, res);
+  } catch (error) {
+    console.error("Error in register route:", error); 
+    next(error);
   }
-
-  //   Creating User
-  const newUser = await User.create({
-    name,
-    email,
-    password,
-    confirmPassword,
-  });
-
-  createSendToken(newUser, 201, res);
 });
 
 // Login controller
