@@ -11,14 +11,14 @@ const signToken = (userId) => {
   });
 };
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
 
   // Setting cookies
   const cookies = {
     expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
     httpOnly: true,
-    secure: req.secure || req.headers["x-forwarded-proto"] === "https",
+    secure: true,
     // secure: process.env.NODE_ENV === "production",
   };
 
@@ -49,9 +49,9 @@ exports.register = catchAsync(async (req, res, next) => {
       confirmPassword,
     });
 
-    createSendToken(newUser, 201, res);
+    createSendToken(newUser, 201, req, res);
   } catch (error) {
-    console.error("Error in register route:", error); 
+    console.error("Error in register route:", error);
     next(error);
   }
 });
