@@ -6,9 +6,14 @@ const { findOne, create } = require("../models/hotelsModel");
 require("dotenv").config();
 
 const signToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  });
+  try {
+    return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    });
+  } catch (error) {
+    console.error("Error signing token:", error);
+    throw new AppError("Token generation failed.", 500);
+  }
 };
 
 const createSendToken = (user, statusCode, req, res) => {
