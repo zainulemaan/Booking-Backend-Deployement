@@ -48,6 +48,7 @@ const UserSchema = new mongoose.Schema({
   //   default: "Student",
   // },
 });
+// pre save middleware for password encryption
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
@@ -56,6 +57,15 @@ UserSchema.pre("save", async function (next) {
   this.confirmPassword = undefined;
   next();
 });
+
+// instannce method to compare password for login
+
+UserSchema.methods.correctPassword = async function (
+  candidatePasswor,
+  UserPassword
+) {
+  return await bcrypt.compare(candidatePasswor, UserPassword);
+};
 
 const User = mongoose.model("User", UserSchema);
 module.exports = User;
