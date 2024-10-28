@@ -41,12 +41,12 @@ const UserSchema = new mongoose.Schema({
       message: (props) => `Password must be 8 characters long.`,
     },
   },
-  role: {
-    type: String,
-    required: true,
-    enum: ["Student", "Instructor", "Admin"],
-    default: "Student",
-  },
+  // role: {
+  //   type: String,
+  //   required: true,
+  //   enum: ["Student", "Instructor", "Admin"],
+  //   default: "Student",
+  // },
 });
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {

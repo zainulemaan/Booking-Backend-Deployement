@@ -10,8 +10,8 @@ const signToken = (userId) => {
 };
 
 exports.register = catchAsync(async (req, res, next) => {
-  const { name, email, password, confirmPassword, role } = req.body;
-  if (!name || !email || !password || !confirmPassword || !role) {
+  const { name, email, password, confirmPassword } = req.body;
+  if (!name || !email || !password || !confirmPassword) {
     return next(new AppError("Please Provide All The Details Thanks!", 400));
   }
 
@@ -21,7 +21,6 @@ exports.register = catchAsync(async (req, res, next) => {
     email,
     password,
     confirmPassword,
-    role,
   });
 
   const token = signToken(newUser._id);
