@@ -3,6 +3,7 @@ const app = express();
 const morgan = require("morgan");
 const userRoutes = require("./routes/userRoutes");
 const hotelRoutes = require("./routes/hotelRoutes");
+const productRoutes = require("./routes/productRoutes");
 // const whatsappRoutes = require("./routes/whatsappRoutes");
 
 // Middleware
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/hotels", hotelRoutes);
+app.use("/api/v1/products", productRoutes);
 // app.use("/api/v1/whatsapp", whatsappRoutes);
 
 module.exports = app;
